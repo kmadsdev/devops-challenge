@@ -1,6 +1,6 @@
-FROM node:latest
+FROM python:3.9
 WORKDIR /app
-ADD . .
-RUN npm install -g serve
+COPY . /app
+RUN pip install -r requirements.txt
 EXPOSE 5000
-CMD "serve"
+CMD ["python", "main.py"]
