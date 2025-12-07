@@ -1,5 +1,6 @@
 const root = document.querySelector("#root")
 
+
 const home = () => {
     const container = document.createElement('div');
     container.innerHTML = `
@@ -15,6 +16,7 @@ const home = () => {
     return container;
 };
 
+
 const reader = () => {
     const container = document.createElement('div');
     container.innerHTML = `
@@ -26,6 +28,7 @@ const reader = () => {
 
     return container;
 };
+
 
 const writer = () => {
     const container = document.createElement('div');
@@ -45,8 +48,9 @@ const writer = () => {
     return container;
 }
 
+
 const readerhealth = (readerparagraph) => {
-    const url='http://localhost:8080/health';
+    const url='http://localhost:8082/health';
     fetch(url, {
         method: "GET",
         mode: 'cors',
@@ -66,8 +70,9 @@ const readerhealth = (readerparagraph) => {
     })
 }
 
- const writerhealth = (writerparagraph) => {
-    const url='http://localhost:8081/health';
+
+const writerhealth = (writerparagraph) => {
+    const url='http://localhost:8083/health';
     fetch(url, {
         method: "GET",
         mode: 'cors',
@@ -85,6 +90,7 @@ const readerhealth = (readerparagraph) => {
     })
 }
 
+
 const assembleStatus = (paragraph, service, status) => {
     let statusIcon = 'danger'
     let statusBadge = 'danger'
@@ -96,10 +102,11 @@ const assembleStatus = (paragraph, service, status) => {
             service + ' service status <span class="badge badge-'+statusBadge+'">'+status+'</span>'
 }
 
+
 async function writeData(e) {
     e.preventDefault();
 
-    const url='http://localhost:8081/write';
+    const url='http://localhost:8083/write';
     fetch(url, {
         method: "POST",
         body: e.target.elements.post.value,
@@ -114,8 +121,9 @@ async function writeData(e) {
     })
 }
 
+
 const readData = (paragraph) => {
-    const url='http://localhost:8080/data';
+    const url='http://localhost:8082/data';
     fetch(url, {
         method: "GET",
         mode: 'cors',
@@ -145,14 +153,17 @@ const routes = {
     writer: writer(),
 }
 
+
 const validateHash = (hash) => hash === ""  ? 'home' : hash.replace('#', '');
 const init = () => window.addEventListener('hashchange', renderPage);
+
 
 const renderPage = () => {
     const page = validateHash(window.location.hash);
     root.innerHTML = '';
     root.appendChild(routes[page])
 }
+
 
 window.addEventListener('load', ()=> {
     renderPage();
