@@ -1,32 +1,65 @@
-# Desafio DevOps jr PicPay
+# DevOps Challenge
+My solution for a technical challange made for upcoming Jr DevOps/SRE Engineers at the green bank💚
 
-Obrigado pelo interesse em fazer parte do nosso time! Preparamos este desafio com carinho para ajudar a entender um pouco mais dos seus conhecimentos na área de DevOps/SRE
+## How to Run
+```bash
+docker compose build
+docker compose up --build
+```
+> The web page will be hosted at [https://localhost:5000/](https://localhost:5000/)
 
-Se não entender algum conceito ou parte do problema, não é motivo para se preocupar! Queremos que faça o desafio até onde souber.
 
-No mais, divirta-se :D
 
-## Conteúdo do repositório
-Na pasta `services` deste repositório existem 3 aplicações, um frontend que se comunica com um backend go e um em python, e estes se comunicam com um Redis para troca de informações. Tudo isso é orquestrado pelo docker-compose na raiz do repositório.
+<br><br><br><br><br>
 
-As aplicações contém falhas propositais, de código, projeto, imagem docker, etc. Embora cada aplicação funcione individualmente, o conjunto não sobe...
 
-## O que deve ser feito?
 
-Faça um fork deste repositório e envie uma pull request contendo:
-- ajustes que fazem todas as aplicações subirem e se comunicarem
-- um README contendo os seus pensamentos ao longo do projeto
-- um desenho contendo os serviços que explique o funcionamento
+## Test on terminal
+### Test the API health
+```bash
+curl.exe http://localhost:8082/health
+```
+> Should return **`up`**
+### Writer
+```bash
+Invoke-WebRequest -Method POST -Uri http://localhost:8083/write -Body "hello"
+```
+### Reader
+```bash
+Invoke-WebRequest http://localhost:8082/data
+```
 
-Faça commits ao longo do processo, queremos entender o seu modo de pensar! :)
 
-Para a entrevista, separe também anotações contendo melhorias que faria em cada aplicação e o motivo. Não envie estas anotações na pull request.
 
-## Bibliografia recomendada
-https://docs.docker.com/engine/reference/builder/
+<br><br><br><br><br>
 
-https://docs.docker.com/compose/compose-file/
 
-https://12factor.net/
 
-https://conventionalcommits.org/
+# Architecture
+### Stack
+- Frontend: HTML/CSS, Bootstrap, JavaScript, Node.JS
+- Backend: Python, GO
+- Database: Redis
+
+### Containers
+The `docker-compose.yaml` will create & orchestrate 4 containers:
+- `devops-challenge-web-1` - Web Service
+- `devops-challenge-writer-1` - Writer Service
+- `devops-challenge-reader-1` - Reader Service
+- `devops-challenge-redis-1` - Redis Database
+
+### Service Ports
+- Web/Front: [http://localhost:5000/](http://localhost:5000)
+- Reader: [http://localhost:8082/](http://localhost:8082)
+- Writer: [http://localhost:8083/](http://localhost:8083)
+- Redis: [http://localhost:6379/](http://localhost:6379)
+
+### Flow
+The user (using the `Web Service (Node.JS)`) can send or request data from the redis
+- Send: `Writer Service (python)` writes on `Redis` and returns a code `201` to `Web Service (Node.JS)`
+- Request: `Reader Service (GO)` reads from `Redis` and returns its data to `Web Service (Node.JS)`
+
+<br>
+
+### Architecture Design / Infra
+![](architecture.png)
