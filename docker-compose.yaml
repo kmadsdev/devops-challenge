@@ -1,26 +1,35 @@
 version: "3.9"
+
 services:
-  web:
-    build: services/frontend
-    ports:
-      - "5000:5000"
-    networks:
-      - frontend
-      - backend
-  reader:
-    build: services/reader
-    ports:
-      - "8081:8081"
-    networks:
-      - frontend
-  writer:
-    build: services/writer
-    ports:
-      - "8080:8080"
-    networks:
-      - backend
-  reids:
-    image: "redis:alpine"
+    web:
+        build: services/frontend
+        ports:
+          - "5000:5000"
+        networks:
+          - frontend
+          - backend
+
+    reader:
+        build: services/reader
+        ports:
+          - "8082:8082"
+        networks:
+          - backend
+    
+    writer:
+      build: services/writer
+      ports:
+        - "8083:8083"
+      networks:
+        - backend
+
+    redis:
+      image: "redis:alpine"
+      ports:
+        - "6379:6379"
+      networks:
+        - backend
 
 networks:
+  frontend:
   backend:
