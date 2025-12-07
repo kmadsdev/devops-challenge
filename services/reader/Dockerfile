@@ -1,6 +1,8 @@
-FROM golang:1.16
-WORKDIR /go/src/github.com/PicPay/picpay-jr-devops-challenge/services/go
-ADD . /go/src/github.com/PicPay/picpay-jr-devops-challenge/services/go
-
-EXPOSE 8080
-CMD ["go","run","main.go"]
+FROM golang:1.22-alpine
+WORKDIR /app
+COPY . .
+RUN go mod init reader || true
+RUN go mod tidy
+RUN go build -o reader .
+EXPOSE 8082
+CMD ["./reader"]
