@@ -1,6 +1,10 @@
 # DevOps Challenge
 My solution for a technical challange made for upcoming Jr DevOps/SRE Engineers at the green bank💚
 
+![Terminal recording: curl posts hello from the demo to the Python writer, the Go reader returns it, and redis-cli shows the same value in Redis](docs/media/devops-challenge.gif)
+
+*Local run of the README test steps with curl, recorded 2026-11-13. There is no live URL: the stack runs only with Docker Compose.*
+
 ## How to Run
 ```bash
 docker compose build
