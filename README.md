@@ -1,5 +1,5 @@
 # DevOps Challenge
-My solution for a technical challange made for upcoming Jr DevOps/SRE Engineers at the green bank💚
+My solution for a technical challenge made for upcoming Jr DevOps/SRE Engineers at the green bank💚
 
 ## How to Run
 ```bash
